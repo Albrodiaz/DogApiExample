@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.apidogexample.view.dogscreen.DogScreen
 import com.example.apidogexample.view.dogscreen.DogsViewModel
 
@@ -13,12 +14,14 @@ import com.example.apidogexample.view.dogscreen.DogsViewModel
 fun MainScreen(dogsViewModel: DogsViewModel) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopBar() },
-        content = { DogScreen(dogsViewModel = dogsViewModel) }
+        topBar = { TopBar(dogsViewModel) },
+        content = { DogScreen(dogsViewModel) }
     )
 }
 
 @Composable
-fun TopBar() {
-    TopAppBar(title = { Text(text = "Dogs") })
+fun TopBar(dogsViewModel: DogsViewModel) {
+    TopAppBar(title = { Text(text = "Dogs") }, actions = {
+        SearchText(dogsViewModel)
+    }, elevation = 12.dp)
 }

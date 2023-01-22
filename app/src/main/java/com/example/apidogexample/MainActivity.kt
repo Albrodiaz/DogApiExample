@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    dogViewModel.searchByName("chihuahua")
                     MainScreen(dogsViewModel = dogViewModel)
                 }
             }
