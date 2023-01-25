@@ -18,7 +18,11 @@ fun DogScreen(dogsViewModel: DogsViewModel) {
     val isLoading: Boolean by dogsViewModel.isLoading.observeAsState(false)
 
     if (isLoading) {
-        Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Column(
+            Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
             CircularProgressIndicator()
         }
     } else {
@@ -28,5 +32,4 @@ fun DogScreen(dogsViewModel: DogsViewModel) {
             }
         }
     }
-
 }

@@ -1,5 +1,8 @@
 package com.example.apidogexample
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +20,21 @@ import com.example.apidogexample.view.mainscreen.MainScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dogViewModel: DogsViewModel by viewModels()
+
+        val dogsViewModel: DogsViewModel by viewModels()
+
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+                dogsViewModel.setConnection(true)
+            }
+
+            override fun onLost(network: Network) {
+                super.onLost(network)
+                dogsViewModel.setConnection(false)
+            }
+        })
 
         setContent {
             ApiDogExampleTheme {
@@ -25,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen(dogsViewModel = dogViewModel)
+                    MainScreen(dogsViewModel = dogsViewModel)
                 }
             }
         }

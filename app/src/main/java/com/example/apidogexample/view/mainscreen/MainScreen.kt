@@ -5,6 +5,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.apidogexample.view.dogscreen.DogScreen
@@ -12,10 +14,17 @@ import com.example.apidogexample.view.dogscreen.DogsViewModel
 
 @Composable
 fun MainScreen(dogsViewModel: DogsViewModel) {
+    val connected: Boolean by dogsViewModel.connected.observeAsState(false)
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { TopBar(dogsViewModel) },
-        content = { DogScreen(dogsViewModel) }
+        content = {
+            if (!connected) {
+                UnconnectedScreen()
+            } else {
+                DogScreen(dogsViewModel)
+            }
+        }
     )
 }
 

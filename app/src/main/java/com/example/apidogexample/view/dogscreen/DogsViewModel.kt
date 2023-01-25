@@ -18,6 +18,15 @@ class DogsViewModel: ViewModel() {
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    private val _connected = MutableLiveData(false)
+    val connected: LiveData<Boolean> get() = _connected
+
+    fun setConnection(state: Boolean) {
+        viewModelScope.launch {
+            _connected.value = state
+        }
+    }
+
     fun setSearchText(text: String) {
         _searchText.value = text
     }

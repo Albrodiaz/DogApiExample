@@ -63,6 +63,7 @@ fun SearchText(dogsViewModel: DogsViewModel) {
 @Composable
 fun CustomSearchTextField(dogsViewModel: DogsViewModel) {
     val searchText: String by dogsViewModel.searchText.observeAsState("Buscar por raza")
+    val searchButtonEnabled: Boolean by dogsViewModel.connected.observeAsState(false)
     val keyboardController = LocalSoftwareKeyboardController.current
 
     BasicTextField(
@@ -99,10 +100,13 @@ fun CustomSearchTextField(dogsViewModel: DogsViewModel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     innerTextField()
-                    IconButton(onClick = {
-                        dogsViewModel.searchByName()
-                        keyboardController?.hide()
-                    }) {
+                    IconButton(
+                        onClick = {
+                            dogsViewModel.searchByName()
+                            keyboardController?.hide()
+                        },
+                        enabled = searchButtonEnabled
+                    ) {
                         Icon(
                             imageVector = Icons.Outlined.Search,
                             contentDescription = "Search dog",
