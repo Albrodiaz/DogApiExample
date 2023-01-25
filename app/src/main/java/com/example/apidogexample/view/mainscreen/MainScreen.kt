@@ -22,6 +22,6 @@ fun MainScreen(dogsViewModel: DogsViewModel) {
 @Composable
 fun TopBar(dogsViewModel: DogsViewModel) {
     TopAppBar(title = { Text(text = "Dogs") }, actions = {
-        SearchText(dogsViewModel)
+        CustomSearchTextField(dogsViewModel = dogsViewModel)
     }, elevation = 12.dp)
 }
