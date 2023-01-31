@@ -62,7 +62,7 @@ fun SearchText(dogsViewModel: DogsViewModel) {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CustomSearchTextField(dogsViewModel: DogsViewModel) {
-    val searchText: String by dogsViewModel.searchText.observeAsState("Buscar por raza")
+    val searchText: String by dogsViewModel.searchText.observeAsState("")
     val searchButtonEnabled: Boolean by dogsViewModel.connected.observeAsState(false)
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -73,10 +73,10 @@ fun CustomSearchTextField(dogsViewModel: DogsViewModel) {
             .height(45.dp)
             .padding(horizontal = 16.dp)
             .onFocusChanged {
-                if (!it.isFocused) {
-                    dogsViewModel.setSearchText("Buscar por raza")
-                } else {
+                if (it.isFocused) {
                     dogsViewModel.setSearchText("")
+                } else {
+                    dogsViewModel.setSearchText("Buscar por raza")
                 }
             },
         onValueChange = { dogsViewModel.setSearchText(it) },
